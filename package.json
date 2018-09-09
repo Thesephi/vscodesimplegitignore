@@ -2,11 +2,11 @@
     "name": "simplegitignore",
     "displayName": "simplegitignore",
     "description": "Generating your boilerplate .gitignore the dead simple way",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "thesephi",
     "icon": "images/logo.png",
     "galleryBanner": {
-        "color": "#ff5369"
+        "color": "#ffcf00"
     },
     "preview": true,
     "engines": {

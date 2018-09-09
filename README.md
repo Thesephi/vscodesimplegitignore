@@ -1,8 +1,10 @@
-Put a boiplerplate `.gitignore` file into your current workspace home folder
+Put a boilerplate `.gitignore` file into your current workspace home folder
 
 # Please be alert: currently this only works for Mac users
 
 ## Features
+
+![example](images/example.gif)
 
 Behind the curtain, [simplegitignore npm module](https://www.npmjs.com/package/simplegitignore) is used, which essentially automates the process of copying and pasting the boilerplate file from [Github's gitignore repo](https://github.com/github/gitignore) into the `.gitignore` file in your project home folder.
 
