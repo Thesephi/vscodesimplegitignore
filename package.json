@@ -2,7 +2,7 @@
     "name": "simplegitignore",
     "displayName": "simplegitignore",
     "description": "Generating your boilerplate .gitignore the dead simple way",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "publisher": "thesephi",
     "icon": "images/logo.png",
     "galleryBanner": {
@@ -13,7 +13,8 @@
         "vscode": "^1.27.0"
     },
     "categories": [
-        "Programming Languages", "Other"
+        "Programming Languages",
+        "Other"
     ],
     "activationEvents": [
         "onCommand:extension.simplegitignore"
@@ -27,10 +28,12 @@
             }
         ],
         "menus": {
-            "commandPalette": [{
-                "command": "extension.simplegitignore",
-                "when": "workspaceFolderCount"
-            }]
+            "commandPalette": [
+                {
+                    "command": "extension.simplegitignore",
+                    "when": "workspaceFolderCount"
+                }
+            ]
         }
     },
     "scripts": {
