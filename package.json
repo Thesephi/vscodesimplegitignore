@@ -52,6 +52,9 @@
         "url": "https://github.com/Thesephi/vscodesimplegitignore.git"
     },
     "keywords": [
+        "gitignore",
+        "boilerplate",
+        "generator",
         "multi-root ready"
     ]
 }
