@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.simplegitignore', () => {
+    let disposable: vscode.Disposable = vscode.commands.registerCommand('extension.simplegitignore', () => {
         simplegitignore();
     });
 
@@ -25,15 +25,18 @@ export function activate(context: vscode.ExtensionContext) {
 /**
  * Our main plugin function. Invoked when ext is activated
  */
-function simplegitignore(): void {
+async function simplegitignore(): Promise<void> {
 
-    const folders: vscode.WorkspaceFolder[] | undefined = vscode.workspace.workspaceFolders;
-    if(!folders || !folders.length) return;
-    const folder: vscode.WorkspaceFolder = folders[0];
+    const destinationDir: string | undefined = await getDirToPlaceGitignoreFile();
+    if(!destinationDir) {
+        vscode.window.showWarningMessage("Cannot determine which directory to place " +
+            ".gitignore file. Please try again and select a workspace to proceed.");
+        return;
+    }
 
     const stBarMsgDisposable: vscode.Disposable = vscode.window.setStatusBarMessage("Preparing .gitignore...");
     exec("npx simplegitignore", {
-            cwd: folder.uri.path
+            cwd: destinationDir
         },
         (err: Error | null, stdout: string, stderr: string): void => {
             stBarMsgDisposable.dispose();
@@ -58,6 +61,29 @@ function simplegitignoreStdout(stdout: string): void {
                     vscode.window.showErrorMessage(err.message || `Unabled to open ${stdout}`);
                 });
         });
+}
+
+async function getDirToPlaceGitignoreFile(): Promise<string | undefined> {
+    const folders: vscode.WorkspaceFolder[] | undefined = vscode.workspace.workspaceFolders;
+    if(!folders || !folders.length) return;
+
+    let dir: string | undefined;
+    if(folders.length > 1)
+        dir = await getSelectedWorkspaceFolderPathFromUser();
+    else
+        dir = folders[0].uri.path;
+
+    return dir;
+}
+
+async function getSelectedWorkspaceFolderPathFromUser(): Promise<string | undefined> {
+    return new Promise((resolve: (val?: string) => void, reject: (reason: any) => void) => {
+        vscode.window.showWorkspaceFolderPick({
+            placeHolder: "Please choose a workspace directory to put the .gitignore file in..."
+        }).then((wf: vscode.WorkspaceFolder | undefined): void => {
+            return resolve(wf ? wf.uri.path : undefined);
+        }, reject);
+    });
 }
 
 // this method is called when your extension is deactivated
