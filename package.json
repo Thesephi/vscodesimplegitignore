@@ -2,7 +2,7 @@
     "name": "simplegitignore",
     "displayName": "simplegitignore",
     "description": "Generating your boilerplate .gitignore the dead simple way",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "publisher": "thesephi",
     "icon": "images/logo.png",
     "galleryBanner": {
